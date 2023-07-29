@@ -1,7 +1,10 @@
-const Message = require("../model/message.model");
-const User = require("../model/user.model");
+import messageModel from "../model/message.model.js";
+import userModel from "../model/user.model.js";
 
-exports.createMessage = async (req, res) => {
+const Message = messageModel;
+const User = userModel;
+
+export const createMessageC = async (req, res) => {
   const messageObj = {
     sender: req.user._id,
     content: req.body.content,
@@ -25,7 +28,7 @@ exports.createMessage = async (req, res) => {
   }
 };
 
-exports.fetchAllMessage = async (req, res) => {
+export const fetchAllMessageC = async (req, res) => {
   try {
     let messages = await Message.find({ chatId: req.params.chatId })
       .populate("sender", "username pic email")

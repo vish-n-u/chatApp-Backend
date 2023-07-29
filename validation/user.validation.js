@@ -1,8 +1,8 @@
-const User = require("../model/user.model");
-const jwt = require("jsonwebtoken");
-const { jwtSecretKey } = require("../config/jwt.config");
-
-exports.registration = async (req, res, next) => {
+import userModel from "../model/user.model.js";
+import jwt from "jsonwebtoken";
+import jwtSecretKey from "../config/jwt.config.js";
+const User = userModel;
+export const registrationV = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) next();
   else {
@@ -10,13 +10,14 @@ exports.registration = async (req, res, next) => {
   }
 };
 
-exports.validateJwt = async function (req, res, next) {
+export const validateJwtV = async function (req, res, next) {
+  console.log("jwt---SK", jwtSecretKey, req.headers);
   try {
     const token = req.headers.authorization;
 
     const verifyJwt = jwt.verify(token, jwtSecretKey);
 
-    const decodeJwt = await jwt.decode(token, jwtSecretKey);
+    const decodeJwt = jwt.decode(token, jwtSecretKey);
 
     const user = await User.findOne({ email: decodeJwt.email });
     req.user = user;

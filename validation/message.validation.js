@@ -1,6 +1,6 @@
-const Chat = require("../model/chat.model");
-
-exports.validateCreateMessage = async (req, res, next) => {
+import chatModel from "../model/chat.model.js";
+const Chat = chatModel;
+export const validateCreateMessageV = async (req, res, next) => {
   if (!req.body.chatId || !req.body.content) {
     return res.status(404).send({ message: "Invalid input" });
   }
@@ -14,7 +14,7 @@ exports.validateCreateMessage = async (req, res, next) => {
   }
 };
 
-exports.validateFetchAllChat = async (req, res, next) => {
+export const validateFetchAllChatV = async (req, res, next) => {
   // console.log(req.params.chatId, req.params);
   if (!req.params.chatId) {
     return res.status(404).send({ message: "Invalid ChatId" });

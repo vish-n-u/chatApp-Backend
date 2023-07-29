@@ -1,10 +1,9 @@
-const Chat = require("../model/chat.model");
-const User = require("../model/user.model");
-const Message = require("../model/message.model");
+import chatModel from "../model/chat.model.js";
+const Chat = chatModel;
 
-exports.validateAddOrRemoveUser = async (req, res, next) => {
+export const validateAddOrRemoveUserV = async (req, res, next) => {
   try {
-    const isValidGroupChat = await validateGroupChatId(req.body.groupChatId);
+    const isValidGroupChat = await validateGroupChatIdV(req.body.groupChatId);
     if (!isValidGroupChat) {
       return res.status(400).send({
         message: "Invalid group chat id",
@@ -40,7 +39,7 @@ exports.validateAddOrRemoveUser = async (req, res, next) => {
   }
 };
 
-async function validateGroupChatId(groupChatId) {
+export async function validateGroupChatIdV(groupChatId) {
   try {
     const groupChat = await Chat.findById(groupChatId);
     if (!groupChat) {

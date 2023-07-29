@@ -1,17 +1,23 @@
-const messageController = require("../controller/message.controller");
-const messageValidation = require("../validation/message.validation");
-const UserValidation = require("../validation/user.validation");
+import {
+  createMessageC,
+  fetchAllMessageC,
+} from "../controller/message.controller.js";
+import {
+  validateCreateMessageV,
+  validateFetchAllChatV,
+} from "../validation/message.validation.js";
+import { validateJwtV } from "../validation/user.validation.js";
 
-module.exports = (app) => {
+export default function messageRoute(app) {
   console.log("called");
   app.post(
     "/chatApp/api/v1/messages",
-    [UserValidation.validateJwt, messageValidation.validateCreateMessage],
-    messageController.createMessage
+    [validateJwtV, validateCreateMessageV],
+    createMessageC
   );
   app.get(
     "/chatApp/api/v1/messages/:chatId",
-    [UserValidation.validateJwt, messageValidation.validateFetchAllChat],
-    messageController.fetchAllMessage
+    [validateJwtV, validateFetchAllChatV],
+    fetchAllMessageC
   );
-};
+}

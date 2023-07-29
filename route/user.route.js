@@ -1,16 +1,12 @@
-const UserController = require("../controller/user.controller");
-const UserValidation = require("../validation/user.validation");
+import {
+  registrationC,
+  loginC,
+  getUserC,
+} from "../controller/user.controller.js";
+import { registrationV, validateJwtV } from "../validation/user.validation.js";
 
-module.exports = (app) => {
-  app.post(
-    "/chatApp/api/v1/users/register",
-    [UserValidation.registration],
-    UserController.registration
-  );
-  app.post("/chatApp/api/v1/users/login", UserController.login);
-  app.get(
-    "/chatApp/api/v1/users",
-    [UserValidation.validateJwt],
-    UserController.getUser
-  );
-};
+export function userRoute(app) {
+  app.post("/chatApp/api/v1/users/register", [registrationV], registrationC);
+  app.post("/chatApp/api/v1/users/login", loginC);
+  app.get("/chatApp/api/v1/users", [validateJwtV], getUserC);
+}

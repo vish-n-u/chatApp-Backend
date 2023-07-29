@@ -1,9 +1,10 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const User = require("../model/user.model");
-const { jwtSecretKey } = require("../config/jwt.config");
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import userModel from "../model/user.model.js";
+import jwtSecretKey from "../config/jwt.config.js";
+const User = userModel;
 
-exports.registration = async (req, res) => {
+export const registrationC = async (req, res) => {
   // console.log("reached here");
   const newUserObj = {
     username: req.body.username,
@@ -22,7 +23,7 @@ exports.registration = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+export const loginC = async (req, res) => {
   // console.log("login", req.body.email, req.body.password, req.body.name, 10);
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -50,7 +51,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.getUser = async function (req, res) {
+export const getUserC = async function (req, res) {
   try {
     // console.log("reached");
     const searchUser = req.query.search || {};

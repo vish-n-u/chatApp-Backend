@@ -1,8 +1,8 @@
-const Chat = require("../model/chat.model");
-const User = require("../model/user.model");
-const Message = require("../model/message.model");
-
-exports.accessChat = async (req, res) => {
+import chatModel from "../model/chat.model.js";
+import userModel from "../model/user.model.js";
+const Chat = chatModel;
+const User = userModel;
+export const accessChatC = async (req, res) => {
   try {
     const chat = await Chat.find({
       isGroupChat: false,
@@ -41,7 +41,7 @@ exports.accessChat = async (req, res) => {
   }
 };
 
-exports.getAllChat = async (req, res) => {
+export const getAllChatC = async (req, res) => {
   try {
     const userChat = await Chat.find({
       users: { _id: req.user._id },
@@ -60,7 +60,7 @@ exports.getAllChat = async (req, res) => {
   }
 };
 
-exports.createGroupChat = async (req, res) => {
+export const createGroupChatC = async (req, res) => {
   try {
     const groupchatObj = {
       name: req.body.name,
@@ -79,7 +79,7 @@ exports.createGroupChat = async (req, res) => {
   }
 };
 
-exports.updateGroupChatName = async (req, res) => {
+export const updateGroupChatNameC = async (req, res) => {
   try {
     // console.log(req.body);
     const groupChat = await Chat.findByIdAndUpdate(
@@ -97,7 +97,7 @@ exports.updateGroupChatName = async (req, res) => {
   }
 };
 
-exports.removeUser = async (req, res) => {
+export const removeUserC = async (req, res) => {
   try {
     // console.log("$$$$", req.groupChat.users, req.groupChat.users.length);
     for (let x = 0; x < req.groupChat.users.length; x++) {
@@ -127,7 +127,7 @@ exports.removeUser = async (req, res) => {
   }
 };
 
-exports.removeMultipleUser = async (req, res) => {
+export const removeMultipleUserC = async (req, res) => {
   try {
     // console.log("$$$$", req.groupChat.users, req.groupChat.users.length);
     for (let x = 0; x < req.groupChat.users.length; x++) {
@@ -153,7 +153,7 @@ exports.removeMultipleUser = async (req, res) => {
   }
 };
 
-exports.addUser = async function (req, res) {
+export const addUserC = async function (req, res) {
   try {
     await req.groupChat.users.push(req.body.updateUser);
 

@@ -1,10 +1,17 @@
-const express = require("express");
+import Express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+
+import { userRoute } from "./route/user.route.js";
+import chatRoute from "./route/chat.route.js";
+
+import messageRoute from "./route/message.route.js";
+import { Server } from "socket.io";
+import DB_URL from "./config/db.config.js";
+
+const express = Express;
 const app = express();
 app.use(express.json());
-
-const cors = require("cors");
-const mongoose = require("mongoose");
-const DB_URL = require("./config/db.config");
 
 app.use(cors());
 app.get("/", (req, res) => {
@@ -18,14 +25,14 @@ db.on("error", () => {
 });
 db.once("open", () => {
   console.log("#### Connected to mongoDB ####");
-  require("./route/user.route")(app);
-  require("./route/chat.route")(app);
-  require("./route/message.route")(app);
+  userRoute(app);
+  chatRoute(app);
+  messageRoute(app);
   const server = app.listen(
     5000,
     console.log(`Server running on PORT ${5000}...`)
   );
-  const io = require("socket.io")(server, {
+  const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
       origin: "http://localhost:3000",
