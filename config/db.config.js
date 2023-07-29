@@ -1,3 +1,5 @@
-const DB_URL = "mongodb://127.0.0.1:27017/chatApp";
+require("dotenv").config();
+
+const DB_URL = process.env.mongo_URI;
 
 module.exports = DB_URL;
