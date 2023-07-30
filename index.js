@@ -37,8 +37,8 @@ db.once("open", () => {
     cors: {
       origin:
         process.env == "PRODUCTION"
-          ? "https://main--cerulean-puffpuff-0bd317.netlify.app"
-          : "http://localhost:3000",
+          ? "https://main--cerulean-puffpuff-0bd317.netlify.app/chat"
+          : "http://localhost:3000/",
     },
   });
   io.on("connection", (socket) => {
