@@ -35,10 +35,7 @@ db.once("open", () => {
   const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-      origin:
-        process.env == "PRODUCTION"
-          ? "https://main--cerulean-puffpuff-0bd317.netlify.app/chat"
-          : "http://localhost:3000/",
+      origin: "https://main--cerulean-puffpuff-0bd317.netlify.app/chat",
     },
   });
   io.on("connection", (socket) => {
