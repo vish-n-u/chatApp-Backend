@@ -35,7 +35,7 @@ db.once("open", () => {
   const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-      origin: "https://main--cerulean-puffpuff-0bd317.netlify.app/chat",
+      origin: "https://main--cerulean-puffpuff-0bd317.netlify.app",
     },
   });
   io.on("connection", (socket) => {
