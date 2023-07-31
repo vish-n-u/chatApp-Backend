@@ -59,7 +59,7 @@ export const getUserC = async function (req, res) {
     const getSearchedUser = await User.find({
       username: { $regex: new RegExp(searchUser, "i") },
       _id: { $ne: req.user._id },
-    });
+    }).sort({ username: 1 });
 
     // console.log(getSearchedUser);
     return res.status(200).send(getSearchedUser);

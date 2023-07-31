@@ -9,6 +9,9 @@ import messageRoute from "./route/message.route.js";
 import { Server } from "socket.io";
 import DB_URL from "./config/db.config.js";
 
+import { config } from "dotenv";
+
+config();
 const express = Express;
 const app = express();
 app.use(express.json());
@@ -35,7 +38,7 @@ db.once("open", () => {
   const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-      origin: "https://main--cerulean-puffpuff-0bd317.netlify.app",
+      origin: process.env.origin,
     },
   });
   io.on("connection", (socket) => {
